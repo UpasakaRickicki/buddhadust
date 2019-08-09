@@ -108,8 +108,8 @@ DotAll = ON | Wrap = ON
 `<h4 class="ctr.*<\/h4>`
 
 
-### 11. Remove Brackets on Endnotes (partially working)
-DotAll = OFF | Wrap = ON
+### 11. Remove Brackets on Endnotes
+DotAll = OFF | Minimal Match = ON | Wrap = ON
 
 Find:
 
@@ -119,6 +119,9 @@ Replace:
 
 `<sup>\1</sup>`
 
+- - -
+
+## DEPRECATED, DO NOT USE
 
 ### // 8a? Remove Footers A
 DotAll = ON | Wrap = ON
