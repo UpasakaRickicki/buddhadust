@@ -59,7 +59,7 @@ DotAll = OFF | Wrap = ON
 
 Find:
 
-a. `<a id="([fn])`
+a. `<a id="([fnp])`
 b. `<a href="#n`
 c. `a>\]<\/sup>`
 
