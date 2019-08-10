@@ -24,22 +24,17 @@ NOTE: Unless otherwise specified, the "Replace" field is always left blank
 
 # Expressions I've Figured Out So Far
 
-### 1. Remove Headers
+
+### 1-3. Remove Headers + Homepage Line + Nav
 DotAll = ON | Wrap = ON
 
-`<head>.*<\/head>`
+Find:
 
+`<head>.*Sections<\/a>]<\/p>`
 
-### 2. Remove Homepage line
-DotAll = OFF | Wrap = ON
+Replace:
 
-`<p class="ctr"><img.*</p>`
-
-
-### 3. Remove Nav
-DotAll = OFF | Wrap = ON
-
-`<p class="ctr f2">.*</p>`
+`<head></head><body>`
 
 
 ### 4. Add Sutta # Before Title
@@ -61,11 +56,12 @@ DotAll = OFF | Wrap = ON
 
 
 ### 6. Remove Other Text Links (italics still throw some errors)
-DotAll = OFF | Wrap = ON
+DotAll = OFF | Minimal Match = ON | Wrap = ON
 
 Find:
-* a. Italic: `<a href="\.\.\/\.\.\/\.\.\/.*<i>(\w.*)</\i><\/a>`
+* a. Italic: `<a href="\.\.\/\.\.\/\.\.\/.*">(.*\w.*)<\/a>`
 * b. Regular: `<a href="\.\.\/\.\.\/\.\.\/.*>(\w.*)<\/a>`
+* c?. `<\s*a[^>]*>(.*?)<\s*/\s*a>`
 
 Replace:
 
@@ -121,7 +117,25 @@ Replace:
 
 - - -
 
-## DEPRECATED, DO NOT USE
+## Deprecated / Unused
+
+### 1. Remove Headers
+DotAll = ON | Wrap = ON
+
+`<head>.*<\/head>`
+
+
+### 2. Remove Homepage line
+DotAll = OFF | Wrap = ON
+
+`<p class="ctr"><img.*</p>`
+
+
+### 3. Remove Nav
+DotAll = OFF | Wrap = ON
+
+`<p class="ctr f2">.*</p>`
+
 
 ### // 8a? Remove Footers A
 DotAll = ON | Wrap = ON
