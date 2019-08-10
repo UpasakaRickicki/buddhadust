@@ -61,7 +61,7 @@ DotAll = OFF | Minimal Match = ON | Wrap = ON
 Find:
 * a. Italic: `<a href="\.\.\/\.\.\/\.\.\/.*">(.*\w.*)<\/a>`
 * b. Regular: `<a href="\.\.\/\.\.\/\.\.\/.*>(\w.*)<\/a>`
-* c?. `<\s*a[^>]*>(.*?)<\s*/\s*a>`
+* c?. `<\s*a href="\.\.\/[^>]*>(.*?)<\s*/\s*a>`
 
 Replace:
 
@@ -98,7 +98,7 @@ DotAll = ON | Wrap = ON
 `<p class="fine ctr c">.*<\/p>`
 
 
-### 10. Remove Boilerplate
+### 10. Remove Boilerplate (no longer needed)
 DotAll = ON | Wrap = ON
 
 `<h4 class="ctr.*<\/h4>`
