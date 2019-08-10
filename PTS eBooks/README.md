@@ -38,7 +38,7 @@ Replace:
 
 
 ### 2. Add Sutta # Before Title
-DotAll = ON | Wrap = ON
+DotAll = ON | Minimal Match = OFF | Wrap = ON
 
 Find:
 
@@ -52,21 +52,22 @@ Replace:
 ### 3. Remove Translation Links
 DotAll = OFF | Wrap = ON
 
-`<span class="f3">\[<a .*\]<\/span>`
+`<span class="f[34]">\[<a .*<\/span>`
 
 
 ### 3a. Rename Note Links
+DotAll = OFF | Wrap = ON
 
 Find:
 
-a. `<a id="([fnp])`
-b. `<a href="#n`
+a. `<a id="([fne])`
+b. `<a href="#([fne])`
 c. `a>\]<\/sup>`
 
 Replace:
 
 a. `<aNOTE id="\1`
-b. `<aNOTEhref="#n`
+b. `<aNOTE href="#\1`
 c. `aNOTE>]</sup>`
 
 
@@ -87,9 +88,11 @@ Replace:
 `a`
 
 
-### 4. Remove Inline Images
+### 4. Remove Inline Images / Float Boxes
 DotAll = OFF | Wrap = ON
 
+`<div class="floatrpp.*<\/div>`
+or
 `<p><img src="\..*</p>`
 
 
@@ -99,7 +102,7 @@ DotAll = ON | Wrap = ON
 `<p class="fine ctr c">.*<\/p>`
 
 
-### 6. Remove Boilerplate (no longer needed?)
+### 6. Remove Boilerplate
 DotAll = ON | Wrap = ON
 
 `<h4 class="ctr.*<\/h4>`
