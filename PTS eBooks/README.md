@@ -25,7 +25,7 @@ NOTE: Unless otherwise specified, the "Replace" field is always left blank
 # Expressions I've Figured Out So Far
 
 
-### 1-3. Remove Headers + Homepage Line + Nav
+### 1. Remove Headers + Homepage Line + Nav
 DotAll = ON | Wrap = ON
 
 Find:
@@ -37,7 +37,7 @@ Replace:
 `<head></head><body>`
 
 
-### 4. Add Sutta # Before Title
+### 2. Add Sutta # Before Title
 DotAll = ON | Wrap = ON
 
 Find:
@@ -49,30 +49,82 @@ Replace:
 `<h1>\2 - \5</h1>`
 
 
-### 5. Remove Translation Links
+### 3. Remove Translation Links
 DotAll = OFF | Wrap = ON
 
 `<span class="f3">\[<a .*\]<\/span>`
 
 
-### 6. Remove Other Text Links (italics still throw some errors)
-DotAll = OFF | Minimal Match = ON | Wrap = ON
+### 3a. Rename Note Links
 
 Find:
-* a. Italic: `<a href="\.\.\/\.\.\/\.\.\/.*">(.*\w.*)<\/a>`
-* b. Regular: `<a href="\.\.\/\.\.\/\.\.\/.*>(\w.*)<\/a>`
-* c?. `<\s*a href="\.\.\/[^>]*>(.*?)<\s*/\s*a>`
+
+a. `<a id="([fn])`
+b. `<a href="#n`
+c. `a>\]<\/sup>`
 
 Replace:
 
-`\1`
+a. `<aNOTE id="\1`
+b. `<aNOTEhref="#n`
+c. `aNOTE>]</sup>`
 
 
-### 7. Remove Inline Images
+### 3b. Remove Text Links
+DotAll = OFF | Minimal Match = ON | Wrap = ON
+
+`<\/?a(?:(?= )[^>]*)?>` (matches ALL anchor tags)
+
+
+### 3c. Restore Note Links
+
+Find:
+
+`aNOTE`
+
+Replace:
+
+`a`
+
+
+### 4. Remove Inline Images
 DotAll = OFF | Wrap = ON
 
 `<p><img src="\..*</p>`
 
+
+### 5. Remove Footers
+DotAll = ON | Wrap = ON
+
+`<p class="fine ctr c">.*<\/p>`
+
+
+### 6. Remove Boilerplate (no longer needed?)
+DotAll = ON | Wrap = ON
+
+`<h4 class="ctr.*<\/h4>`
+
+
+### 7. Remove Copyright
+DotAll = ON | Wrap = ON
+
+`<p class="ctr">Translated.*Use.<\/p>`
+
+
+### 8. Remove Brackets on Endnotes
+DotAll = OFF | Minimal Match = ON | Wrap = ON
+
+Find:
+
+`<sup>\[(.*)\]<\/sup>`
+
+Replace:
+
+`<sup>\1</sup>`
+
+- - -
+
+## Deprecated / Unused
 
 ### 8a. Fix CC Licence Links
 DotAll = OFF | Wrap = ON
@@ -91,33 +143,6 @@ DotAll = OFF | Wrap = ON
 
 `For details see.*Use\.`
 
-
-### 9. Remove Footers
-DotAll = ON | Wrap = ON
-
-`<p class="fine ctr c">.*<\/p>`
-
-
-### 10. Remove Boilerplate (no longer needed)
-DotAll = ON | Wrap = ON
-
-`<h4 class="ctr.*<\/h4>`
-
-
-### 11. Remove Brackets on Endnotes
-DotAll = OFF | Minimal Match = ON | Wrap = ON
-
-Find:
-
-`<sup>\[(.*)\]<\/sup>`
-
-Replace:
-
-`<sup>\1</sup>`
-
-- - -
-
-## Deprecated / Unused
 
 ### 1. Remove Headers
 DotAll = ON | Wrap = ON
