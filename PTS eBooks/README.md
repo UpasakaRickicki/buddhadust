@@ -25,7 +25,7 @@ NOTE: Unless otherwise specified, the "Replace" field is always left blank
 # Expressions I've Figured Out So Far
 
 
-### 1-3. Remove Headers + Homepage Line + Nav
+### 1. Remove Headers + Homepage Line + Nav
 DotAll = ON | Wrap = ON
 
 Find:
@@ -37,8 +37,120 @@ Replace:
 `<head></head><body>`
 
 
-### 4. Add Sutta # Before Title
+### 2. Reformat Titles
+DotAll = ON | Minimal Match = OFF | Wrap = ON
+
+Find:
+
+`<h4 class="ctr">.*Sutta (\d+).*>([^>]* Suttaɱ?).*<h1>(.*)<\/h1>`
+
+Replace:
+
+`<h1>\1. \3</h1><h2>\2</h2>`
+
+
+### 3. Remove Translation Links
+DotAll = OFF | Wrap = ON
+
+`<span class="f[34]">[^>]*\[<a .*\]<\/span>`
+or
+`<span class="f[34]"><[ab].*\]<\/span> ` (include the space at the end) (267)
+
+
+### 3a. Rename Note Links
+DotAll = OFF | Wrap = ON
+
+Find:
+
+a. `<a id="([fne])` (6654?)
+b. `<a href="#([fne])` (54)
+c. `a>\]<\/sup>` (6703)
+
+Replace:
+
+a. `<aNOTE id="\1`
+b. `<aNOTE href="#\1`
+c. `aNOTE>]</sup>`
+
+
+### 3b. Remove Text Links
+DotAll = OFF | Minimal Match = ON | Wrap = ON
+
+`<\/?a(?:(?= )[^>]*)?>` (matches ALL anchor tags) (6888)
+
+
+### 3c. Restore Note Links
+DotAll = OFF | Wrap = ON
+
+Find:
+
+`aNOTE` (13410)
+
+Replace:
+
+`a`
+
+#### Issues with Step 3.
+Can be fixed manually in ~2 minutes
+
+* Sutta 22 has a unique "<a id="non-returner">" tag
+* Sutta 77 line 3021 has a unique footnote link within the footnote
+* Sutta 152 line 517 ''
+
+
+### 4. Remove Inline Images / Float Boxes (throws error?)
+DotAll = ON | Minimal Match = ON | Wrap = ON
+
+`<div class="float[lr](?:pp)?.*<\/div>`
+and
+`<p><img src="\..*</p>` (DotAll = OFF)
+
+
+### 5. Remove Footers
 DotAll = ON | Wrap = ON
+
+`<p class="fine ctr c">.*<\/p>` (152)
+
+
+### 6. Remove Boilerplate
+DotAll = ON | Minimal Match = ON | Wrap = ON
+
+`<h4 class="ctr.*<\/h4>` (4?)
+
+
+### 7. Remove Copyright
+DotAll = ON | Wrap = ON
+
+`<p class="ctr">.*(?:Use|permission|Chow|Genaud).<\/p>` (160)
+
+
+### 8. Remove Brackets on Endnotes
+DotAll = OFF | Minimal Match = ON | Wrap = ON
+
+Find:
+
+`<sup>\[(.*)\]<\/sup>` (6700)
+
+Replace:
+
+`<sup>\1</sup>`
+
+- - -
+
+## MN Exceptions / Bugs / Notes
+
+* Sutta 1 has a non-standard footer (addressed by removing manually)
+* Suttas 74 and 112 use "Sutta" instead of "Suttaɱ" (addressed by matching "ɱ" optionally)
+* Sutta 78 has the "Middle Length Sayings" underneath the header (addressed by removing boilerplate)
+* Suttas 107-10, 118-120, 125 have differently formatted copyright text (addressed in step 7)
+* Sutta 120's "Thus Have I Heard" is formatted strangely (addressed by fixing manually)
+
+- - -
+
+## Deprecated / Unused
+
+### 2. Add Sutta # Before Title
+DotAll = ON | Minimal Match = OFF | Wrap = ON
 
 Find:
 
@@ -47,31 +159,6 @@ Find:
 Replace:
 
 `<h1>\2 - \5</h1>`
-
-
-### 5. Remove Translation Links
-DotAll = OFF | Wrap = ON
-
-`<span class="f3">\[<a .*\]<\/span>`
-
-
-### 6. Remove Other Text Links (italics still throw some errors)
-DotAll = OFF | Minimal Match = ON | Wrap = ON
-
-Find:
-* a. Italic: `<a href="\.\.\/\.\.\/\.\.\/.*">(.*\w.*)<\/a>`
-* b. Regular: `<a href="\.\.\/\.\.\/\.\.\/.*>(\w.*)<\/a>`
-* c?. `<\s*a href="\.\.\/[^>]*>(.*?)<\s*/\s*a>`
-
-Replace:
-
-`\1`
-
-
-### 7. Remove Inline Images
-DotAll = OFF | Wrap = ON
-
-`<p><img src="\..*</p>`
 
 
 ### 8a. Fix CC Licence Links
@@ -91,33 +178,6 @@ DotAll = OFF | Wrap = ON
 
 `For details see.*Use\.`
 
-
-### 9. Remove Footers
-DotAll = ON | Wrap = ON
-
-`<p class="fine ctr c">.*<\/p>`
-
-
-### 10. Remove Boilerplate (no longer needed)
-DotAll = ON | Wrap = ON
-
-`<h4 class="ctr.*<\/h4>`
-
-
-### 11. Remove Brackets on Endnotes
-DotAll = OFF | Minimal Match = ON | Wrap = ON
-
-Find:
-
-`<sup>\[(.*)\]<\/sup>`
-
-Replace:
-
-`<sup>\1</sup>`
-
-- - -
-
-## Deprecated / Unused
 
 ### 1. Remove Headers
 DotAll = ON | Wrap = ON
