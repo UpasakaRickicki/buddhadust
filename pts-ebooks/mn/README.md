@@ -56,8 +56,12 @@ DotAll = OFF | Wrap = ON
 or
 `<span class="f[34]"><[ab].*\]<\/span> ` (include the space at the end) (267)
 
+#### Issues
 
-### 3a. Rename Note Links
+* Sutta 6 is differently formatted at the beginning
+
+
+### 4a. Rename Note Links
 DotAll = OFF | Wrap = ON
 
 Find:
@@ -73,13 +77,13 @@ b. `<aNOTE href="#\1`
 c. `aNOTE>]</sup>`
 
 
-### 3b. Remove Text Links
+### 4b. Remove Text Links
 DotAll = OFF | Minimal Match = ON | Wrap = ON
 
 `<\/?a(?:(?= )[^>]*)?>` (matches ALL anchor tags) (6888)
 
 
-### 3c. Restore Note Links
+### 4c. Restore Note Links
 DotAll = OFF | Wrap = ON
 
 Find:
@@ -90,7 +94,7 @@ Replace:
 
 `a`
 
-#### Issues with Step 3.
+#### Issues with Step 4.
 Can be fixed manually in ~2 minutes
 
 * Sutta 22 has a unique "<a id="non-returner">" tag
@@ -98,7 +102,7 @@ Can be fixed manually in ~2 minutes
 * Sutta 152 line 517 ''
 
 
-### 4. Remove Inline Images / Float Boxes (throws error?)
+### 5. Remove Inline Images / Float Boxes (throws error?)
 DotAll = ON | Minimal Match = ON | Wrap = ON
 
 `<div class="float[lr](?:pp)?.*<\/div>`
@@ -106,25 +110,25 @@ and
 `<p><img src="\..*</p>` (DotAll = OFF)
 
 
-### 5. Remove Footers
+### 6. Remove Footers
 DotAll = ON | Wrap = ON
 
 `<p class="fine ctr c">.*<\/p>` (152)
 
 
-### 6. Remove Boilerplate
+### 7. Remove Boilerplate
 DotAll = ON | Minimal Match = ON | Wrap = ON
 
 `<h4 class="ctr.*<\/h4>` (4?)
 
 
-### 7. Remove Copyright
+### 8. Remove Copyright
 DotAll = ON | Wrap = ON
 
 `<p class="ctr">.*(?:Use|permission|Chow|Genaud).<\/p>` (160)
 
 
-### 8. Remove Brackets on Endnotes
+### 9. Remove Brackets on Endnotes
 DotAll = OFF | Minimal Match = ON | Wrap = ON
 
 Find:
@@ -134,6 +138,28 @@ Find:
 Replace:
 
 `<sup>\1</sup>`
+
+
+### 10. Fix "Thus Have I Heard" Bolding
+
+Find:
+
+`T<span class="f2"><b>HUS`
+
+Replace:
+
+`<span class="f2"><b>THUS`
+
+
+### 11. Change "m" Style
+
+Find:
+
+`ɱ`
+
+Replace:
+
+`ṃ`
 
 - - -
 
