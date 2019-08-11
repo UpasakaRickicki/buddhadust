@@ -135,6 +135,28 @@ Replace:
 
 `<sup>\1</sup>`
 
+
+### 9. Fix "Thus Have I Heard" Bolding
+
+Find:
+
+`T<span class="f2"><b>HUS`
+
+Replace:
+
+`<span class="f2"><b>THUS`
+
+
+### 10. Change "m" Style
+
+Find:
+
+`ɱ`
+
+Replace:
+
+`ṃ`
+
 - - -
 
 ## MN Exceptions / Bugs / Notes
