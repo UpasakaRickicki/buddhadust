@@ -27,7 +27,7 @@ NOTE: Unless specified, the "Replace" field is left blank
 # DN Reformatting Notes
 
 * Sutta 2/3 has an appendix that doesn't seem to fit
-* Sutta 33 has several separate files, intro needs to be dragged to beginning, Subtitles need to be manually combined
+* Sutta 33 has several separate files, intro needs to be dragged to beginning, Subtitles need to be manually combined or reformatted
 
 -------------------------------
 
@@ -72,7 +72,7 @@ Find: `<h4[^<]*>(.*Sutta)<\/h4>`
 or
 Find: `<h4[^<]*>[XVI]+\. (.*Sutta)<\/h4>` (strips Roman numerals for Sutta #) Minimal OFF DotAll OFF
 or
-Find: `<h4[^<]*>[XVI]+\. (.*Suttan?n?t?a?).*<\/h4>` (multi-line, for Sutta 26) DA = ON | M = OFF
+Find: `<h4[^<]*>[XVI]+\. (.*Suttan?n?t?a?.*)<\/h4>` (multi-line, for Sutta 26, might work for all) DA = ON | M = OFF
 Replace: `<h2>\1</h2>`
 
 ##### (decrements second title's header level) Minimal OFF DotAll OFF
