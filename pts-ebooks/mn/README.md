@@ -103,7 +103,7 @@ Replace:
 `a`
 
 #### Issues with Step 4.
-Can be fixed manually in ~2 minutes
+Can be fixed manually in about 2 minutes
 
 * Sutta 22 has a unique "<a id="non-returner">" tag
 * Sutta 77 line 3021 has a unique footnote link within the footnote
@@ -159,15 +159,17 @@ Replace:
 `<span class="f2"><b>THUS`
 
 
-### 11. Change "m" Style
+### 11. Change "m" and "n" Style
 
 Find:
 
-`ɱ`
+a. `ɱ`
+b. `ŋ`
 
 Replace:
 
-`ṃ`
+a. `ṃ`
+b. `ṅ`
 
 - - -
 

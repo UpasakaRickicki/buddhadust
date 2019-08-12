@@ -27,7 +27,7 @@ NOTE: Unless specified, the "Replace" field is left blank
 # DN Reformatting Notes
 
 * Sutta 2/3 has an appendix that doesn't seem to fit
-* Sutta 33 has several separate files, intro needs to be dragged to beginning
+* Sutta 33 has several separate files, intro needs to be dragged to beginning, Subtitles need to be manually combined
 
 -------------------------------
 
@@ -47,23 +47,38 @@ Replace:
 
 
 
-### 2. Reformat Titles (modify)
+### 2. Reformat Titles
 DotAll = ON | Minimal Match = ON | Wrap = ON
 
 Find:
 
-`<h4 class="ctr">.*Sutta (\d+).*>([^>]* Suttaɱ?).*<h1>(.*)<\/h1>`
+`<h4 class="ctr">.*Sutta (\d++).*>([^>]* Suttan?t?a?ɱ?).*<h1>(.*)<\/h1>`
 
 Replace:
 
-`<h1>\1. \3</h1><h2>\2</h2>`
+`<h1>\1. \3</h1><h3>\2</h3>`
 
 
 #### Issues
 
-* Double digits aren't capturing
 * When there's an Introduction, the `<h1>` titles appear twice
+	* solution: modify h-level of intro and sutta title
+	* caveat: sometimes the 2nd instance of the Pali sutta title is missing, so cannot be used for TOC
 
+Find: `<h4.*Introduction.*<\/h4>` or `<h4 [^ ]*Introduction.*<\/h4>` (DotAll = ON)
+Replace: `<h2>Introduction</h2>`
+
+Find: `<h4[^<]*>(.*Sutta)<\/h4>`
+or
+Find: `<h4[^<]*>[XVI]+\. (.*Sutta)<\/h4>` (strips Roman numerals for Sutta #) Minimal OFF DotAll OFF
+or
+Find: `<h4[^<]*>[XVI]+\. (.*Suttan?n?t?a?).*<\/h4>` (multi-line, for Sutta 26) DA = ON | M = OFF
+Replace: `<h2>\1</h2>`
+
+##### (decrements second title's header level) Minimal OFF DotAll OFF
+
+Find: `<h1>([^\d<]*)<\/h1>` !misses when title has a footnote link
+Replace: `<h3>\1</h3>`
 
 
 ### 3. Remove Translation Links
@@ -166,15 +181,17 @@ Replace:
 `<span class="f2"><b>THUS`
 
 
-### 11. Change "m" Style
+### 11. Change "m" and "n" Style
 
 Find:
 
-`ɱ`
+a. `ɱ`
+b. `ŋ`
 
 Replace:
 
-`ṃ`
+a. `ṃ`
+b. `ṅ`
 
 
 - - -
