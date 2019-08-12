@@ -20,9 +20,17 @@ NOTE: Unless otherwise specified, the "Replace" field is always left blank
 * Online RegEx reference and playground: https://regexr.com/
 * Excellent text editor that supports RegEx: https://www.sublimetext.com/3
 
+- - -
+
+## MN Issues / Notes
+
+* Sutta 1 has a non-standard footer (addressed by removing manually)
+* Sutta 120's "Thus Have I Heard" is formatted strangely (addressed by fixing manually)
+* When a Title has an endnote, it appears in the TOC text (addressed by removing manually)
+
 -------------------------------
 
-# Expressions I've Figured Out So Far
+# Expressions
 
 
 ### 1. Remove Headers + Homepage Line + Nav
@@ -160,16 +168,6 @@ Find:
 Replace:
 
 `ṃ`
-
-- - -
-
-## MN Exceptions / Bugs / Notes
-
-* Sutta 1 has a non-standard footer (addressed by removing manually)
-* Suttas 74 and 112 use "Sutta" instead of "Suttaɱ" (addressed by matching "ɱ" optionally)
-* Sutta 78 has the "Middle Length Sayings" underneath the header (addressed by removing boilerplate)
-* Suttas 107-10, 118-120, 125 have differently formatted copyright text (addressed in step 7)
-* Sutta 120's "Thus Have I Heard" is formatted strangely (addressed by fixing manually)
 
 - - -
 
