@@ -26,7 +26,7 @@ NOTE: Unless otherwise specified, the "Replace" field is always left blank
 
 * Sutta 1 has a non-standard footer (addressed by removing manually)
 * Sutta 120's "Thus Have I Heard" is formatted strangely (addressed by fixing manually)
-* When a Title has an endnote, it appears in the TOC text (addressed by removing manually)
+* When a Title has an endnote (16, 48, 51, 83, 95, 102, 109, 119, 120, 130, 136, 139, 152) it appears in the TOC text (addressed by removing manually)
 
 -------------------------------
 
