@@ -3,6 +3,8 @@
 # How to Remove Content Using RegEx in Sigil
 
 This guide assumes you've already added your HTML files into Sigil.
+The buddhadust pts-mn files can be found [here](https://github.com/bksubhuti/buddhadust/tree/master/dhamma-vinaya/pts/mn):
+
 
 1. Double-click into first HTML file
 2. Click top line of file
@@ -31,7 +33,7 @@ NOTE: Unless otherwise specified, the "Replace" field is always left blank
 -------------------------------
 
 # Expressions
-
+These expressions are to be performed in the same order as listed.  For instance, the order of operations is necessary to remove keep the links for the footnotes but to remove all other hyperlinks.
 
 ### 1. Remove Headers + Homepage Line + Nav
 DotAll = ON | Wrap = ON
@@ -70,6 +72,8 @@ or
 
 
 ### 4a. Rename Note Links
+*The purpose of this RegEx is to remove the links but preserve a uniqueness that can be restored back after all global links are removed.*
+
 DotAll = OFF | Wrap = ON
 
 Find:
@@ -86,12 +90,15 @@ c. `aNOTE>]</sup>`
 
 
 ### 4b. Remove Text Links
+*This RegEx will remove any hyperlink or anchor tags*
 DotAll = OFF | Minimal Match = ON | Wrap = ON
 
 `<\/?a(?:(?= )[^>]*)?>` (matches ALL anchor tags) (6888)
 
 
 ### 4c. Restore Note Links
+*This RegEx will restore the hyperlinks for the footnotes that were previously renamed.*  
+
 DotAll = OFF | Wrap = ON
 
 Find:
