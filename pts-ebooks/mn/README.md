@@ -3,6 +3,7 @@
 # How to Remove Content Using RegEx in Sigil
 
 This guide assumes you've already added your HTML files into Sigil.
+
 The buddhadust pts-mn files can be found [here](https://github.com/bksubhuti/buddhadust/tree/master/dhamma-vinaya/pts/mn):
 
 
@@ -35,7 +36,22 @@ NOTE: Unless otherwise specified, the "Replace" field is always left blank
 # Expressions
 These expressions are to be performed in the same order as listed.  For instance, the order of operations is necessary to remove keep the links for the footnotes but to remove all other hyperlinks.
 
-### 1. Remove Headers + Homepage Line + Nav
+
+
+### 1. Change "m" and "n" Style
+
+Find:
+
+a. `ɱ`
+b. `ŋ`
+
+Replace:
+
+a. `ṃ`
+b. `ṅ`
+
+
+### 2. Remove Headers + Homepage Line + Nav
 DotAll = ON | Wrap = ON
 
 Find:
@@ -47,19 +63,19 @@ Replace:
 `<head></head><body>`
 
 
-### 2. Reformat Titles
+### 3. Reformat Titles
 DotAll = ON | Minimal Match = OFF | Wrap = ON
 
 Find:
 
-`<h4 class="ctr">.*Sutta (\d+).*>([^>]* Suttaɱ?).*<h1>(.*)<\/h1>`
+`<h4 class="ctr">.*Sutta (\d+).*>([^>]* Suttaṃ?).*<h1>(.*)<\/h1>`
 
 Replace:
 
 `<h1>\1. \3</h1><h2>\2</h2>`
 
 
-### 3. Remove Translation Links
+### 4. Remove Translation Links
 DotAll = OFF | Wrap = ON
 
 `<span class="f[34]">[^>]*\[<a .*\]<\/span>`
@@ -71,7 +87,7 @@ or
 * Sutta 6 is differently formatted at the beginning
 
 
-### 4a. Rename Note Links
+### 5a. Rename Note Links
 *The purpose of this RegEx is to remove the links but preserve a uniqueness that can be restored back after all global links are removed.*
 
 DotAll = OFF | Wrap = ON
@@ -89,14 +105,14 @@ b. `<aNOTE href="#\1`
 c. `aNOTE>]</sup>`
 
 
-### 4b. Remove Text Links
+### 5b. Remove Text Links
 *This RegEx will remove any hyperlink or anchor tags*
 DotAll = OFF | Minimal Match = ON | Wrap = ON
 
 `<\/?a(?:(?= )[^>]*)?>` (matches ALL anchor tags) (6888)
 
 
-### 4c. Restore Note Links
+### 5c. Restore Note Links
 *This RegEx will restore the hyperlinks for the footnotes that were previously renamed.*  
 
 DotAll = OFF | Wrap = ON
@@ -109,7 +125,7 @@ Replace:
 
 `a`
 
-#### Issues with Step 4.
+#### Issues with Step 5.
 Can be fixed manually in about 2 minutes
 
 * Sutta 22 has a unique "<a id="non-returner">" tag
@@ -117,7 +133,7 @@ Can be fixed manually in about 2 minutes
 * Sutta 152 line 517 ''
 
 
-### 5. Remove Inline Images / Float Boxes (throws error?)
+### 6. Remove Inline Images / Float Boxes (throws error?)
 DotAll = ON | Minimal Match = ON | Wrap = ON
 
 `<div class="float[lr](?:pp)?.*<\/div>`
@@ -125,25 +141,25 @@ and
 `<p><img src="\..*</p>` (DotAll = OFF)
 
 
-### 6. Remove Footers
+### 7. Remove Footers
 DotAll = ON | Wrap = ON
 
 `<p class="fine ctr c">.*<\/p>` (152)
 
 
-### 7. Remove Boilerplate
+### 8. Remove Boilerplate
 DotAll = ON | Minimal Match = ON | Wrap = ON
 
 `<h4 class="ctr.*<\/h4>` (4?)
 
 
-### 8. Remove Copyright
+### 9. Remove Copyright
 DotAll = ON | Wrap = ON
 
 `<p class="ctr">.*(?:Use|permission|Chow|Genaud).<\/p>` (160)
 
 
-### 9. Remove Brackets on Endnotes
+### 10. Remove Brackets on Endnotes
 DotAll = OFF | Minimal Match = ON | Wrap = ON
 
 Find:
@@ -155,7 +171,7 @@ Replace:
 `<sup>\1</sup>`
 
 
-### 10. Fix "Thus Have I Heard" Bolding
+### 11. Fix "Thus Have I Heard" Bolding
 
 Find:
 
@@ -166,17 +182,6 @@ Replace:
 `<span class="f2"><b>THUS`
 
 
-### 11. Change "m" and "n" Style
-
-Find:
-
-a. `ɱ`
-b. `ŋ`
-
-Replace:
-
-a. `ṃ`
-b. `ṅ`
 
 - - -
 
