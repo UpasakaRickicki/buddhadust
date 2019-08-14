@@ -104,7 +104,7 @@ DotAll = ON | Minimal Match = ON
 
 Find:
 
-`<h4[^\n]*Introduction.* Suttan?t?a?.*<\/h4>` (21)
+`<h4[^\n]*Introduction.* Sutta?n?t?a?\.?.*<\/h4>` (22)
 
 Replace:
 
@@ -112,9 +112,9 @@ Replace:
 
 
 
-### 3d. Strip roman numerals from Sutta name headers
+### 3d. Strip roman numerals from Sutta name headers and promote
 
-Find: `<h4[^<]*>[XVI]+\. (.*Suttan?n?t?a?.*)<\/h4>` DA = ON | M = ON (12)
+Find: `<h[34][^<]*>[XVI]+\. (.*Suttan?n?t?a?.*)<\/h[34]>` DA = ON | M = ON (12)
 Replace: `<h2>\1</h2>`
 
 #### Issues
@@ -129,7 +129,7 @@ Replace: `<h2>\1</h2>`
 
 ##### 3e. Decrement Second Title's Header for TOC
 
-Find: `<h1>([^\.]*)<\/h1>` D0 M0 (26)
+Find: `<h1>([^\.]*)<\/h1>` D0 M0 (27)
 Replace: `<h3>\1</h3>`
 
 
@@ -137,12 +137,12 @@ Replace: `<h3>\1</h3>`
 ### 4. Remove Translation Links
 DotAll = OFF | Wrap = ON
 
-`<span class="f[34]">\[?<[ab].*\]<\/span> ` (include the space at the end)
+`<span class="f[34]">\[?<[ab].*\]<\/span> ` (include the space at the end) (579)
 
 
 
 ### 5a. Rename Note Links
-DotAll = OFF | Wrap = ON
+DotAll = OFF | Minimal Match = ON
 
 Find:
 
@@ -156,7 +156,7 @@ Replace:
 ### 5b. Remove Text Links
 DotAll = OFF | Minimal Match = ON | Wrap = ON
 
-`<\/?a(?:(?= )[^>]*)?>` (4500)
+`<\/?a(?:(?= )[^>]*)?>` (4504)
 
 
 
@@ -165,7 +165,7 @@ DotAll = OFF | Wrap = ON
 
 Find:
 
-`aNOTE` (7145)
+`aNOTE` (7180)
 
 Replace:
 
@@ -177,8 +177,6 @@ DotAll = ON | Minimal Match = ON | Wrap = ON
 
 `<div class="float[lr](?:pp)?.*<\/div>` (49)
 
-
-## ! Confirmed WORKING Up to Here ! ##
 
 
 ### 8. Remove Footers
@@ -201,7 +199,7 @@ Replace:
 DotAll = ON | Minimal Match = ON | Wrap = ON
 
 `<p class="ctr">.*(?:Oxford|copyright\.")<\/p>` (41)
-`<p class="ctr">Translated.*&#160;<\/p>` (46) (misses some text in 6, 33)
+`<p class="ctr">Translated.*&#160;<\/p>` (46) (misses some text in 6, 33, BREAKS PREFACE)
 
 
 ### 11. Remove Brackets on Endnotes
@@ -210,10 +208,16 @@ DotAll = OFF | Minimal Match = ON | Wrap = ON
 Find:
 
 `<sup>\[(.*)\]<\/sup>` (3435)
+	or
+`(<sup>.*)\[(.*)\](.*<\/sup>)`
 
 Replace:
 
 `<sup>\1</sup>`
+or
+`\1\2\3`
+
+#### Issues
 
 
 
