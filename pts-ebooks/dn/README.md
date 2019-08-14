@@ -15,7 +15,7 @@ This guide assumes you've already added your HTML files into Sigil.
 7. Click "Replace All"
 8. Repeat Steps 5-7 for each desired operation
 
-NOTE: Unless specified, the "Replace" field is left blank
+NOTE: Unless specified, the "Replace" field is left blank and "Wrap" is always ON
 
 ### Resources for RegEx
 
@@ -29,148 +29,200 @@ NOTE: Unless specified, the "Replace" field is left blank
 * Sutta 2/3 has an appendix that doesn't seem to fit
 * Sutta 33 has several separate files, intro needs to be dragged to beginning, Subtitles need to be manually combined or reformatted
 
+
+# Build Steps
+
+1. Re-order Suttas
+2. Run expressions
+3. Build TOC, removing items and endnote numbers
+4. Add HTML TOC
+5. Add Cover
+
 -------------------------------
 
 # DN Reformatting Expressions
 
 
-### 1. Remove Headers + Homepage Line + Nav
-DotAll = ON | Wrap = ON
+### 1. Change "m" and "n" Style
+DotAll = OFF
 
 Find:
 
-`<head>.*Sections<\/a>]<\/p>`
+a. `ɱ` (539)
+b. `ŋ` (171)
 
 Replace:
 
-`<head></head><body>`
+a. `ṃ`
+b. `ṅ`
+
+
+### 2. Remove Headers + Homepage Line + Nav
+DotAll = ON
+
+Find:
+
+`<head>.*Sections<\/a>]<\/p>` (46)
+
+Replace:
+
+`<head><title></title></head><body>`
 
 
 
-### 2. Reformat Titles
+### 3a. Reformat Titles
 DotAll = ON | Minimal Match = ON | Wrap = ON
 
 Find:
 
-`<h4 class="ctr">.*Sutta (\d++).*>([^>]* Suttan?t?a?ɱ?).*<h1>(.*)<\/h1>`
+`<h4 class="ctr">.*Sutta (\d++).*>([^>]* Suttan?t?a?ṃ?).*<h1>(.*)<\/h1>` (Matches 43)
 
 Replace:
 
 `<h1>\1. \3</h1><h3>\2</h3>`
 
 
-#### Issues
 
-* When there's an Introduction, the `<h1>` titles appear twice
-	* solution: modify h-level of intro and sutta title
-	* caveat: sometimes the 2nd instance of the Pali sutta title is missing, so cannot be used for TOC
+### 3b. Reformat 33. Recital Titles
+DotAll = ON | Minimal Match = ON
 
-Find: `<h4.*Introduction.*<\/h4>` or `<h4 [^ ]*Introduction.*<\/h4>` (DotAll = ON)
-Replace: `<h2>Introduction</h2>`
+* Do Intro manually
+* Omit `<h1>`s here from TOC manually
 
-Find: `<h4[^<]*>(.*Sutta)<\/h4>`
-or
-Find: `<h4[^<]*>[XVI]+\. (.*Sutta)<\/h4>` (strips Roman numerals for Sutta #) Minimal OFF DotAll OFF
-or
-Find: `<h4[^<]*>[XVI]+\. (.*Suttan?n?t?a?.*)<\/h4>` (multi-line, for Sutta 26, might work for all) DA = ON | M = OFF
+Find:
+
+`(33.*)(<h4[^>]*>)([\w\s]+)(<\/h4>)` (9)
+
+Replace:
+
+`\1<h2>\3</h2>`
+
+
+
+### 3c. Reformat Introductions
+DotAll = ON | Minimal Match = ON
+
+Find:
+
+`<h4[^\n]*Introduction.* Suttan?t?a?.*<\/h4>` (21)
+
+Replace:
+
+`<h2>Introduction</h2>`
+
+
+
+### 3d. Strip roman numerals from Sutta name headers
+
+Find: `<h4[^<]*>[XVI]+\. (.*Suttan?n?t?a?.*)<\/h4>` DA = ON | M = ON (12)
 Replace: `<h2>\1</h2>`
 
-##### (decrements second title's header level) Minimal OFF DotAll OFF
+#### Issues
 
-Find: `<h1>([^\d<]*)<\/h1>` !misses when title has a footnote link
+* 19, 22 missing 2nd Sutta title after Intro (place manually?)
+* 21 has "Chapter" headings instead of Sutta title after Introduction (target w code)
+	Find: `<h3 [^>]*>(.*)<\/h3>` Replace: `<h2>\1</h2>` D0 M0
+* 23 has a solo "Chapter I." heading (remove from TOC manually?)
+* 24 has the 2nd Sutta title in all caps (fix manually before 2d?) Pāṭika Suttanta
+
+
+
+##### 3e. Decrement Second Title's Header for TOC
+
+Find: `<h1>([^\.]*)<\/h1>` D0 M0 (26)
 Replace: `<h3>\1</h3>`
 
 
-### 3. Remove Translation Links
+
+### 4. Remove Translation Links
 DotAll = OFF | Wrap = ON
 
 `<span class="f[34]">\[?<[ab].*\]<\/span> ` (include the space at the end)
 
-#### Issues
 
 
-
-
-### 4a. Rename Note Links
+### 5a. Rename Note Links
 DotAll = OFF | Wrap = ON
 
 Find:
 
-a. `<a id="([fne])` (3528)
-b. `<a href="#([fne])` (8)
-c. `a>\]<\/sup>` (3435)
+`(<sup>.*<)(a)(.*\/)(a)>(?=.*<\/sup>)` (3590)
 
 Replace:
 
-a. `<aNOTE id="\1`
-b. `<aNOTE href="#\1`
-c. `aNOTE>]</sup>`
+`\1aNOTE\3aNOTE>`
 
 
-### 4b. Remove Text Links
+### 5b. Remove Text Links
 DotAll = OFF | Minimal Match = ON | Wrap = ON
 
-`<\/?a(?:(?= )[^>]*)?>` (matches ALL anchor tags) (4715)
+`<\/?a(?:(?= )[^>]*)?>` (4500)
 
 
-### 4c. Restore Note Links
+
+### 6c. Restore Note Links
 DotAll = OFF | Wrap = ON
 
 Find:
 
-`aNOTE` (6971)
+`aNOTE` (7145)
 
 Replace:
 
 `a`
 
-#### Issues
 
-* 
-
-
-### 5. Remove Inline Images / Float Boxes
+### 7. Remove Inline Images / Float Boxes
 DotAll = ON | Minimal Match = ON | Wrap = ON
 
 `<div class="float[lr](?:pp)?.*<\/div>` (49)
 
 
-### 6. Remove Footers
+## ! Confirmed WORKING Up to Here ! ##
+
+
+### 8. Remove Footers
 DotAll = ON | Minimal Match = ON | Wrap = ON
 
-a. `<p class="fine ctr c">.*<\/p>` (46)
-b. `<hr\/>.*\[Contents \].*<\/p>` ?
+Find:
 
-#### Issues
+`(?:<p class="ctr"(?: style="margin-top: 4px")?>&#160;\[(?:Contents |Ones).*)?<\/div>\n\n<hr\/>\n?\n?<p class="fine ctr c">.*<\/p>` (46)
 
-* Suttas 1-13 have extra nav in footer
+Replace:
+
+`</div><hr/>`
 
 
-### 7. Remove Boilerplate (modify or omit)
+## ! Confirmed WORKING Up to Here ! ##
+
+
+
+### 10. Remove Copyright
 DotAll = ON | Minimal Match = ON | Wrap = ON
 
-`<h4 class="ctr.*<\/h4>` (4?)
+`<p class="ctr">.*(?:Oxford|copyright\.")<\/p>` (41)
+`<p class="ctr">Translated.*&#160;<\/p>` (46) (misses some text in 6, 33)
 
 
-### 8. Remove Copyright
-DotAll = ON | Wrap = ON
-
-`<p class="ctr">.*(?:Oxford)<\/p>` (41)
-
-
-### 9. Remove Brackets on Endnotes
+### 11. Remove Brackets on Endnotes
 DotAll = OFF | Minimal Match = ON | Wrap = ON
 
 Find:
 
-`<sup>\[(.*)\]<\/sup>` (3437)
+`<sup>\[(.*)\]<\/sup>` (3435)
 
 Replace:
 
 `<sup>\1</sup>`
 
 
-### 10. Fix "Thus Have I Heard" Bolding (remove?)
+
+- - -
+
+## Deprecated / Unused
+
+
+### 12. Fix "Thus Have I Heard" Bolding (remove?)
 
 Find:
 
@@ -179,23 +231,3 @@ Find:
 Replace:
 
 `<span class="f2"><b>THUS`
-
-
-### 11. Change "m" and "n" Style
-
-Find:
-
-a. `ɱ`
-b. `ŋ`
-
-Replace:
-
-a. `ṃ`
-b. `ṅ`
-
-
-- - -
-
-## Deprecated / Unused
-
-
