@@ -184,14 +184,10 @@ DotAll = OFF | Minimal Match = ON | Wrap = ON
 
 Find:
 
-`<sup>\[(.*)\]<\/sup>` (3435)
-	or
 `(<sup>.*)\[(.*)\](.*<\/sup>)`
 
 Replace:
 
-`<sup>\1</sup>`
-or
 `\1\2\3`
 
 #### Issues
