@@ -47,8 +47,8 @@ DotAll = OFF
 
 Find:
 
-a. `ɱ` (539)
-b. `ŋ` (171)
+a. `ɱ`
+b. `ŋ`
 
 Replace:
 
@@ -61,7 +61,7 @@ DotAll = ON
 
 Find:
 
-`<head>.*Sections<\/a>]<\/p>` (46)
+`<head>.*<p>&#160;</p>`
 
 Replace:
 
@@ -69,67 +69,33 @@ Replace:
 
 
 
-### 3a. Reformat Titles
-DotAll = ON | Minimal Match = ON | Wrap = ON
+### 3a. Reformat Titles -- Demote H1s
+DotAll = OFF
 
 Find:
 
-`<h4 class="ctr">.*Sutta (\d++).*>([^>]* Suttan?t?a?ṃ?).*<h1>(.*)<\/h1>` (Matches 43)
+`<(\/?h)(1)(?:(?= )[^>]*)?>`
 
 Replace:
 
-`<h1>\1. \3</h1><h3>\2</h3>`
-
-
-
-### 3b. Reformat 33. Recital Titles
-DotAll = ON | Minimal Match = ON
-
-* Do Intro manually
-* Omit `<h1>`s here from TOC manually
-
-Find:
-
-`(33.*)(<h4[^>]*>)([\w\s]+)(<\/h4>)` (9)
-
-Replace:
-
-`\1<h2>\3</h2>`
-
-
-
-### 3c. Reformat Introductions
-DotAll = ON | Minimal Match = ON
-
-Find:
-
-`<h4[^\n]*Introduction.* Sutta?n?t?a?\.?.*<\/h4>` (22)
-
-Replace:
-
-`<h2>Introduction</h2>`
-
-
-
-### 3d. Strip roman numerals from Sutta name headers and promote
-
-Find: `<h[34][^<]*>[XVI]+\. (.*Suttan?n?t?a?.*)<\/h[34]>` DA = ON | M = ON (12)
-Replace: `<h2>\1</h2>`
+`<\12>`
 
 #### Issues
 
-* 19, 22 missing 2nd Sutta title after Intro (place manually?)
-* 21 has "Chapter" headings instead of Sutta title after Introduction (target w code)
-	Find: `<h3 [^>]*>(.*)<\/h3>` Replace: `<h2>\1</h2>` D0 M0
-* 23 has a solo "Chapter I." heading (remove from TOC manually?)
-* 24 has the 2nd Sutta title in all caps (fix manually before 2d?) Pāṭika Suttanta
+* Must manually change the first "Part I" title back to H1 before building TOC, then remove the others when building the TOC
 
 
 
-##### 3e. Decrement Second Title's Header for TOC
+### 3b. Reformat Titles -- Promote Sutta H4s to H2
+DotAll = OFF
 
-Find: `<h1>([^\.]*)<\/h1>` D0 M0 (27)
-Replace: `<h3>\1</h3>`
+Find:
+
+`(?:<h4)(.*Suttas.*)(?:h4>)`
+
+Replace:
+
+`<h2\1h2>`
 
 
 
@@ -185,20 +151,26 @@ Find:
 
 `(?:<p class="ctr"(?: style="margin-top: 4px")?>&#160;\[(?:Contents |Ones).*)?<\/div>\n\n<hr\/>\n?\n?<p class="fine ctr c">.*<\/p>` (46)
 
+or
+`<p class="fine ctr c">.*<\/p>`
+
 Replace:
 
 `</div><hr/>`
 
 
-## ! Confirmed WORKING Up to Here ! ##
+### 9. Remove Boilerplate before title
+DotAll = ON | Minimal Match = ON | Wrap = ON
+
+`<h4.*Aṅguttar.*Suttas.*h2>`
 
 
 
 ### 10. Remove Copyright
 DotAll = ON | Minimal Match = ON | Wrap = ON
 
-`<p class="ctr">.*(?:Oxford|copyright\.")<\/p>` (41)
-`<p class="ctr">Translated.*&#160;<\/p>` (46) (misses some text in 6, 33, BREAKS PREFACE)
+`<p class="ctr f2">Translated.*&#160;<\/p>`
+
 
 
 ### 11. Remove Brackets on Endnotes
