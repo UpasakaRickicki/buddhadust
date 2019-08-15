@@ -82,7 +82,8 @@ Replace:
 
 #### Issues
 
-* Must manually change the first "Part I" title back to H1 before building TOC, then remove the others when building the TOC
+* Part I - Must manually change the first "Part I" title back to H1 before building TOC, then remove the others when building the TOC
+* Part II - Sub-sections appear with Roman Numerals instead of as a separate header
 
 
 
@@ -163,6 +164,11 @@ Replace:
 DotAll = ON | Minimal Match = ON | Wrap = ON
 
 `<h4.*Aṅguttar.*Suttas.*h2>`
+
+or
+
+Find: `<h4.*Aṅguttar.*Suttas.*([XVI]+)` Replace: `<h4>\1` 
+(strips everything before the roman numerals of the Book title)
 
 
 
