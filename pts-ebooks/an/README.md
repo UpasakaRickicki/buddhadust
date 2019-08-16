@@ -26,7 +26,7 @@ NOTE: Unless specified, the "Replace" field is left blank and "Wrap" is always O
 
 # AN Reformatting Notes
 
-* 
+* All operations just take longer, especially generating the HTML TOC
 
 
 # Build Steps
@@ -69,22 +69,28 @@ Replace:
 
 
 
-### 3a. Reformat Titles -- Demote H1s
-DotAll = OFF
-
-Find:
-
-`<(\/?h)(1)(?:(?= )[^>]*)?>`
-
-Replace:
-
-`<\12>`
+### 3a. Reformat Titles -- Demote H1s and H2s to H3
 
 #### Issues
 
 * Part I - Must manually change the first "Part I" title back to H1 before building TOC, then remove the others when building the TOC
 * Part II - Sub-sections appear with Roman Numerals instead of as a separate header
 
+#### Solution?
+
+1. Demote all H1 and H2 to H3
+2. Promote "Suttas" H4s to H2
+	* Leaves large gaps in the TOC, maybe better to include more detailed nav by including the "Sutta" headers?
+3. Manually Promote / Add eleven "Part" headers to H1
+
+
+Find:
+
+`(?:<h1|2)(.*)(?:h1|2)>` DA=1 (leaves an extra > sometimes?)
+
+Replace:
+
+`<h3\1h3>`
 
 
 ### 3b. Reformat Titles -- Promote Sutta H4s to H2
@@ -92,18 +98,26 @@ DotAll = OFF
 
 Find:
 
-`(?:<h4)(.*Suttas.*)(?:h4>)`
+`(?:<h4)(.*Suttas.*)(?:h4>)` (Works, but a couple of headers have additional text)
 
 Replace:
 
 `<h2\1h2>`
 
 
+### 3e? Promote individual Sutta headers to H2
+
+Find: `(?:<h4)(.*Sutta \d+.*)(?:h4>)`
+Replace: `<h2\1h2>`
+
+* Leaves the Sutta name headers
+	* Solution: Demote all H2s to H3, then promote Sutta range titles to H2
+
 
 ### 4. Remove Translation Links
 DotAll = OFF | Wrap = ON
 
-`<span class="f[34]">\[?<[ab].*\]<\/span> ` (include the space at the end) (579)
+`<span class="f[34]">\[?<[ab].*\]<\/span> ` (include the space at the end) (4365)
 
 
 
@@ -112,7 +126,7 @@ DotAll = OFF | Minimal Match = ON
 
 Find:
 
-`(<sup>.*<)(a)(.*\/)(a)>(?=.*<\/sup>)` (3590)
+`(<sup>.*<)(a)(.*\/)(a)>(?=.*<\/sup>)` (10835)
 
 Replace:
 
@@ -122,7 +136,7 @@ Replace:
 ### 5b. Remove Text Links
 DotAll = OFF | Minimal Match = ON | Wrap = ON
 
-`<\/?a(?:(?= )[^>]*)?>` (4504)
+`<\/?a(?:(?= )[^>]*)?>` (44466)
 
 
 
@@ -131,7 +145,7 @@ DotAll = OFF | Wrap = ON
 
 Find:
 
-`aNOTE` (7180)
+`aNOTE` (21670)
 
 Replace:
 
@@ -141,7 +155,7 @@ Replace:
 ### 7. Remove Inline Images / Float Boxes
 DotAll = ON | Minimal Match = ON | Wrap = ON
 
-`<div class="float[lr](?:pp)?.*<\/div>` (49)
+`<div class="float[lr](?:pp)?.*<\/div>` (208)
 
 
 
@@ -153,7 +167,7 @@ Find:
 `(?:<p class="ctr"(?: style="margin-top: 4px")?>&#160;\[(?:Contents |Ones).*)?<\/div>\n\n<hr\/>\n?\n?<p class="fine ctr c">.*<\/p>` (46)
 
 or
-`<p class="fine ctr c">.*<\/p>`
+`<p class="fine ctr c">.*<\/p>` (minimal) (1353)
 
 Replace:
 
@@ -170,12 +184,18 @@ or
 Find: `<h4.*Aṅguttar.*Suttas.*([XVI]+)` Replace: `<h4>\1` 
 (strips everything before the roman numerals of the Book title)
 
+#### Issues
+
+* Roman numeral use before title is inconsistent
+
 
 
 ### 10. Remove Copyright
 DotAll = ON | Minimal Match = ON | Wrap = ON
 
 `<p class="ctr f2">Translated.*&#160;<\/p>`
+	or
+`<p class="(?:ctr|f2)">Translated.*&#160;<\/p>` (matches more)
 
 
 
@@ -184,7 +204,7 @@ DotAll = OFF | Minimal Match = ON | Wrap = ON
 
 Find:
 
-`(<sup>.*)\[(.*)\](.*<\/sup>)`
+`(<sup>.*)\[(.*)\](.*<\/sup>)` (10834)
 
 Replace:
 
