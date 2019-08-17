@@ -26,7 +26,7 @@ NOTE: Unless specified, the "Replace" field is left blank and "Wrap" is always O
 
 # AN Reformatting Notes
 
-* All operations just take longer, especially generating the HTML TOC
+* All operations just take longer, especially generating the HTML TOC and adding the cover
 
 
 # Build Steps
