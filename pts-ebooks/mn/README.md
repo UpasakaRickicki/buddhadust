@@ -1,6 +1,8 @@
+## Majjhima Nikaya
+
 -------------------------------
 
-# How to Remove Content Using RegEx in Sigil
+### How to Remove Content Using RegEx in Sigil
 
 This guide assumes you've already added your HTML files into Sigil.
 
@@ -25,7 +27,7 @@ NOTE: Unless otherwise specified, the "Replace" field is always left blank
 
 - - -
 
-## MN Issues / Notes
+# MN Reformatting Notes
 
 * Sutta 1 has a non-standard footer (addressed by removing manually)
 * Sutta 120's "Thus Have I Heard" is formatted strangely (addressed by fixing manually)
@@ -33,7 +35,8 @@ NOTE: Unless otherwise specified, the "Replace" field is always left blank
 
 -------------------------------
 
-# Expressions
+# MN Reformatting Expressions
+
 These expressions are to be performed in the same order as listed.  For instance, the order of operations is necessary to remove keep the links for the footnotes but to remove all other hyperlinks.
 
 
@@ -56,11 +59,11 @@ DotAll = ON | Wrap = ON
 
 Find:
 
-`<head>.*Sections<\/a>]<\/p>`
+`<head>.*(?=<div class="main">)`
 
 Replace:
 
-`<head></head><body>`
+`<head><title></title></head><body>`
 
 
 ### 3. Reformat Titles
@@ -74,71 +77,68 @@ Replace:
 
 `<h1>\1. \3</h1><h2>\2</h2>`
 
+OR
+
+### 3. Promote Sutta titles to H2 and place underneath (move to after link removal)
+
+Find:
+
+`<h4 class="ctr">[^>]*Sutta (\d+).*>([^>]* Suttaṃ?).*<h1>(.*)<\/h1>`
+
+Replace:
+
+`<h1>\1. \3</h1><h2>\2</h2>`
+
+
 
 ### 4. Remove Translation Links
 DotAll = OFF | Wrap = ON
 
-`<span class="f[34]">[^>]*\[<a .*\]<\/span>`
-or
 `<span class="f[34]"><[ab].*\]<\/span> ` (include the space at the end) (267)
+or
+`<span class="f[34]">\[?<[ab].*\]<\/span> ` (269)
 
-#### Issues
+#### Bug to Report
 
-* Sutta 6 is differently formatted at the beginning
+* Sutta 6 is differently formatted at the beginning, missing bracket
 
 
 ### 5a. Rename Note Links
-*The purpose of this RegEx is to remove the links but preserve a uniqueness that can be restored back after all global links are removed.*
+_The purpose of this RegEx is to remove the links but preserve a uniqueness that can be restored back after all global links are removed._
 
 DotAll = OFF | Wrap = ON
 
 Find:
 
-a. `<a id="([fne])` (6654?)
-b. `<a href="#([fne])` (54)
-c. `a>\]<\/sup>` (6703)
-
-Replace:
-
-a. `<aNOTE id="\1`
-b. `<aNOTE href="#\1`
-c. `aNOTE>]</sup>`
+`(<sup>.*<)(a)(.*\/)(a)>(?=.*<\/sup>)`
 
 
 ### 5b. Remove Text Links
-*This RegEx will remove any hyperlink or anchor tags*
+_This RegEx will remove any hyperlink or anchor tags_
 DotAll = OFF | Minimal Match = ON | Wrap = ON
 
-`<\/?a(?:(?= )[^>]*)?>` (matches ALL anchor tags) (6888)
+`<\/?a(?:(?= )[^>]*)?>`
 
 
 ### 5c. Restore Note Links
-*This RegEx will restore the hyperlinks for the footnotes that were previously renamed.*  
+_This RegEx will restore the hyperlinks for the footnotes that were previously renamed._
 
 DotAll = OFF | Wrap = ON
 
 Find:
 
-`aNOTE` (13410)
+`aNOTE`
 
 Replace:
 
 `a`
 
-#### Issues with Step 5.
-Can be fixed manually in about 2 minutes
-
-* Sutta 22 has a unique "<a id="non-returner">" tag
-* Sutta 77 line 3021 has a unique footnote link within the footnote
-* Sutta 152 line 517 ''
 
 
-### 6. Remove Inline Images / Float Boxes (throws error?)
+### 6. Remove Inline Images / Float Boxes
 DotAll = ON | Minimal Match = ON | Wrap = ON
 
-`<div class="float[lr](?:pp)?.*<\/div>`
-and
-`<p><img src="\..*</p>` (DotAll = OFF)
+`<div class="float[lr](?:pp)?.*?<\/div>` (93)
 
 
 ### 7. Remove Footers
@@ -165,10 +165,12 @@ DotAll = OFF | Minimal Match = ON | Wrap = ON
 Find:
 
 `<sup>\[(.*)\]<\/sup>` (6700)
+	or
+`(<sup>.*?)\[(.*?)\](.*?<\/sup>)` (6726) M=0
 
 Replace:
 
-`<sup>\1</sup>`
+`\1\2\3`
 
 
 ### 11. Fix "Thus Have I Heard" Bolding
