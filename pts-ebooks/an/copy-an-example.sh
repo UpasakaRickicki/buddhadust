@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# make executable using chmod +x FILENAME.sh then run ./FILENAME.sh
+
 #modify these to match your particular file system
 source_dir=~/buddhadust/dhamma-vinaya/pts/an/
 dest_dir=~/buddhadust/pts-ebooks/an/AN-all/
