@@ -30,13 +30,13 @@ def run(bk):
         # REFORMAT TITLES
 
         # A. Demote H1s to H3
-        html = re.sub(r'(?:<h1)(.*?)(?:h1>)',r'<h3\1h3>', html, 0, re.DOTALL)
+        # html = re.sub(r'(?:<h1)(.*?)(?:h1>)',r'<h3\1h3>', html, 0, re.DOTALL)
 
         # B. Promote individual "Sutta(s) headers to H2
-        html = re.sub(r'(?:<h4)(.*Suttas? \d+.*)(?:h4>)',r'<h2\1h2>', html, 0, 0)
+        # html = re.sub(r'(?:<h4)(.*Suttas? \d+.*)(?:h4>)',r'<h2\1h2>', html, 0, 0)
 
         # Remove Translation Links
-        html = re.sub(r'<span class="f[34]">\[?<[ab].*\]<\/span> ',r'', html, 0, 0)
+        # html = re.sub(r'<span class="f[34]">\[?<[ab].*\]<\/span> ',r'', html, 0, 0)
         
 
         # REFORMAT NOTE LINKS
@@ -58,7 +58,7 @@ def run(bk):
         html = re.sub(r'<p class="fine ctr c">.*<\/p>',r'', html, 0, re.DOTALL)
         
         # Remove Copyright
-        html = re.sub(r'<p class="(?:c|f)[^>]*?>Translated.*?Use.<\/p>',r'', html, 0, re.DOTALL)
+        html = re.sub(r'<p class="(?:c|f)[^>]*?>Translated.*?Domain.<\/p>',r'', html, 0, re.DOTALL)
 
         # Remove Brackets on Endnotes
         html = re.sub(r'(<sup>.*?)\[(.*?)\](.*?<\/sup>)',r'\1\2\3', html, 0, 0)
