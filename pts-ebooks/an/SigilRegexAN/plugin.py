@@ -18,6 +18,7 @@ def run(bk):
         # Expression Template
         # html = re.sub(r'',r'', html, 0, 0)
 
+
         # Change "m" and "n" Style
         html = re.sub(r'ɱ',r'ṃ', html, 0, 0)
         html = re.sub(r'ŋ',r'ṅ', html, 0, 0)
@@ -25,35 +26,43 @@ def run(bk):
         # Remove Headers + Homepage Line + Nav
         html = re.sub(r'<head>.*(?=<div class="main">)',r'<head><title></title></head><body>', html, 0, re.DOTALL)
 
+
+        # REFORMAT TITLES
+
+        # A. Demote H1s to H3
+        html = re.sub(r'(?:<h1)(.*?)(?:h1>)',r'<h3\1h3>', html, 0, re.DOTALL)
+
+        # B. Promote individual "Sutta(s) headers to H2
+        html = re.sub(r'(?:<h4)(.*Suttas? \d+.*)(?:h4>)',r'<h2\1h2>', html, 0, 0)
+
         # Remove Translation Links
         html = re.sub(r'<span class="f[34]">\[?<[ab].*\]<\/span> ',r'', html, 0, 0)
         
-        # Rename Note Links
+
+        # REFORMAT NOTE LINKS
+
+        # A. Rename Note Links
         html = re.sub(r'(<sup>.*<)(a)(.*\/)(a)>(?=.*<\/sup>)',r'\1aNOTE\3aNOTE>', html, 0, 0)
         
-        # Remove Text Links
+        # B. Remove Text Links
         html = re.sub(r'<\/?a(?:(?= )[^>]*)?>',r'', html, 0, 0)
 
-        # Restore Note Links
+        # C. Restore Note Links
         html = re.sub(r'aNOTE',r'a', html, 0, 0)
 
-        # Promote Pali Sutta titles to H2 and place underneath English with Sutta number
-        html = re.sub(r'<h4 class="ctr">[^>]*Sutta (\d+).*>([^>]* Suttaṃ?).*<h1>(.*)<\/h1>',r'<h1>\1. \3</h1><h2>\2</h2>', html, 0, re.DOTALL)
+
+        # Remove Float Boxes / Inline Images
+        html = re.sub(r'<div class="float[lr](?:pp)?.*?<\/div>',r'', html, 0, re.DOTALL)
 
         # Remove Footers
         html = re.sub(r'<p class="fine ctr c">.*<\/p>',r'', html, 0, re.DOTALL)
-
-        # Remove Copyright
-        html = re.sub(r'<p class="ctr">.*(?:Use|permission|Chow|Genaud).<\/p>',r'', html, 0, re.DOTALL) 
         
+        # Remove Copyright
+        html = re.sub(r'<p class="(?:c|f)[^>]*?>Translated.*?Use.<\/p>',r'', html, 0, re.DOTALL)
+
         # Remove Brackets on Endnotes
         html = re.sub(r'(<sup>.*?)\[(.*?)\](.*?<\/sup>)',r'\1\2\3', html, 0, 0)
 
-        # Fix "Thus Have I Heard" Bolding
-        html = re.sub(r'T<span class="f2"><b>HUS',r'<span class="f2"><b>THUS', html, 0, 0)
-
-        # MN ONLY - Remove Extra "Mulapariyaya" footer text
-        html = re.sub(r'<hr.*?Mulapariyaya Resources.*p>',r'', html, 0, re.DOTALL)
 
  
         if not html == html_orig:   #If the text has changed         

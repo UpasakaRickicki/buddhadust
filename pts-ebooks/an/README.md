@@ -69,7 +69,7 @@ Replace:
 
 
 
-### 3a. Reformat Titles -- Demote H1s and H2s to H3
+### 3a. Reformat Titles
 
 #### Issues
 
@@ -84,34 +84,23 @@ Replace:
 3. Manually Promote / Add eleven "Part" headers to H1
 
 
+### 3a. Demote H1s to H3
+
 Find:
 
-`(?:<h1|2)(.*)(?:h1|2)>` DA=1 (leaves an extra > sometimes?)
+a. `(?:<h1)(.*?)(?:h1>)` DA=1 (3315)
 
 Replace:
 
 `<h3\1h3>`
 
 
-### 3b. Reformat Titles -- Promote Sutta H4s to H2
+
+### 3b and 3c COMBINATION
 DotAll = OFF
 
-Find:
+Find: `(?:<h4)(.*Suttas? \d+.*)(?:h4>)`
 
-`(?:<h4)(.*Suttas.*)(?:h4>)` (Works, but a couple of headers have additional text)
-
-Replace:
-
-`<h2\1h2>`
-
-
-### 3e? Promote individual Sutta headers to H2
-
-Find: `(?:<h4)(.*Sutta \d+.*)(?:h4>)`
-Replace: `<h2\1h2>`
-
-* Leaves the Sutta name headers
-	* Solution: Demote all H2s to H3, then promote Sutta range titles to H2
 
 
 ### 4. Remove Translation Links
@@ -155,7 +144,7 @@ Replace:
 ### 7. Remove Inline Images / Float Boxes
 DotAll = ON
 
-`<div class="float[lr](?:pp)?.*?<\/div>` M=0
+`<div class="float[lr](?:pp)?.*?<\/div>` M=0 (208)
 
 
 ### 8. Remove Footers
@@ -165,36 +154,22 @@ Find:
 
 `(?:<p class="ctr"(?: style="margin-top: 4px")?>&#160;\[(?:Contents |Ones).*)?<\/div>\n\n<hr\/>\n?\n?<p class="fine ctr c">.*<\/p>` (46)
 
-or
-`<p class="fine ctr c">.*<\/p>` (minimal) (1353)
-
 Replace:
 
 `</div><hr/>`
 
 
-### 9. Remove Boilerplate before title
-DotAll = ON | Minimal Match = ON | Wrap = ON
-
-`<h4.*Aṅguttar.*Suttas.*h2>`
-
 or
-
-Find: `<h4.*Aṅguttar.*Suttas.*([XVI]+)` Replace: `<h4>\1` 
-(strips everything before the roman numerals of the Book title)
-
-#### Issues
-
-* Roman numeral use before title is inconsistent
+Find `<p class="fine ctr c">.*<\/p>` (minimal) (1353)
 
 
 
 ### 10. Remove Copyright
-DotAll = ON | Minimal Match = ON | Wrap = ON
+DotAll = ON
 
-`<p class="ctr f2">Translated.*&#160;<\/p>`
+`<p class="(?:ctr|f2)">Translated.*?&#160;<\/p>`
 	or
-`<p class="(?:ctr|f2)">Translated.*&#160;<\/p>` (matches more)
+`<p class="(?:c|f)[^>]*?>Translated.*?Use.<\/p>` (seems to match the rest)
 
 
 
@@ -208,8 +183,6 @@ Find:
 Replace:
 
 `\1\2\3`
-
-#### Issues
 
 
 
@@ -227,3 +200,37 @@ Find:
 Replace:
 
 `<span class="f2"><b>THUS`
+
+
+### 9. Remove Boilerplate before title (do not use?)
+DotAll = ON | Minimal Match = ON | Wrap = ON
+
+`<h4.*Aṅguttar.*Suttas.*h2>`
+
+or
+
+Find: `<h4.*Aṅguttar.*Suttas.*([XVI]+)` Replace: `<h4>\1` 
+(strips everything before the roman numerals of the Book title)
+
+#### Issues
+
+* Roman numeral use before title is inconsistent
+
+
+### 3b. Promote Suttas H4s to H2
+DotAll = OFF
+
+Find:
+
+`(?:<h4)(.*Suttas.*)(?:h4>)` (Works, but a couple of headers have additional text)
+
+Replace:
+
+`<h2\1h2>`
+
+
+### 3c. Promote individual Sutta headers to H2
+DotAll = OFF
+
+Find: `(?:<h4)(.*Sutta \d+.*)(?:h4>)`
+Replace: `<h2\1h2>`
