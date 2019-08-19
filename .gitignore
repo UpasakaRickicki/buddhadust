@@ -1,3 +1,5 @@
 .DS_Store
 /pts-ebooks/an/AN-all
+/pts-ebooks/an/SN-all
 copy-an.sh
+copy-sn.sh
