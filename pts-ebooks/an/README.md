@@ -2,7 +2,7 @@
 
 -------------------------------
 
-# How to Reformat Content Using RegEx in Sigil
+### How to Reformat Content Using RegEx in Sigil
 
 This guide assumes you've already added your HTML files into Sigil.
 
@@ -26,7 +26,7 @@ NOTE: Unless specified, the "Replace" field is left blank and "Wrap" is always O
 
 # AN Reformatting Notes
 
-* All operations just take longer, especially generating the HTML TOC
+* All operations just take longer, especially generating the HTML TOC and adding the cover
 
 
 # Build Steps
@@ -61,7 +61,7 @@ DotAll = ON
 
 Find:
 
-`<head>.*<p>&#160;</p>`
+`<head>.*(?=<div class="main">)`
 
 Replace:
 
@@ -153,10 +153,9 @@ Replace:
 
 
 ### 7. Remove Inline Images / Float Boxes
-DotAll = ON | Minimal Match = ON | Wrap = ON
+DotAll = ON
 
-`<div class="float[lr](?:pp)?.*<\/div>` (208)
-
+`<div class="float[lr](?:pp)?.*?<\/div>` M=0
 
 
 ### 8. Remove Footers
