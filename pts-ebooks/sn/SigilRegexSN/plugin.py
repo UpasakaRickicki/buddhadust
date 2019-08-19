@@ -58,7 +58,7 @@ def run(bk):
         html = re.sub(r'<p class="fine ctr c">.*<\/p>',r'', html, 0, re.DOTALL)
         
         # Remove Copyright
-        html = re.sub(r'<p class="(?:c|f)[^>]*?>Translated.*?Domain.<\/p>',r'', html, 0, re.DOTALL)
+        html = re.sub(r'<p class="(?:c|f)[^>]*?>Translated.*?(?:Use\.|Domain)<\/p>',r'', html, 0, re.DOTALL)
 
         # Remove Brackets on Endnotes
         html = re.sub(r'(<sup>.*?)\[(.*?)\](.*?<\/sup>)',r'\1\2\3', html, 0, 0)

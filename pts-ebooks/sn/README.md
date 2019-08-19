@@ -69,37 +69,9 @@ Replace:
 
 
 
-### 3a. Reformat Titles
-
-#### Issues
-
-* Part I - Must manually change the first "Part I" title back to H1 before building TOC, then remove the others when building the TOC
-* Part II - Sub-sections appear with Roman Numerals instead of as a separate header
-
-#### Solution?
-
-1. Demote all H1 and H2 to H3
-2. Promote "Suttas" H4s to H2
-	* Leaves large gaps in the TOC, maybe better to include more detailed nav by including the "Sutta" headers?
-3. Manually Promote / Add eleven "Part" headers to H1
+### 3. Reformat Titles
 
 
-### 3a. Demote H1s to H3
-
-Find:
-
-a. `(?:<h1)(.*?)(?:h1>)` DA=1 (3315)
-
-Replace:
-
-`<h3\1h3>`
-
-
-
-### 3b and 3c COMBINATION
-DotAll = OFF
-
-Find: `(?:<h4)(.*Suttas? \d+.*)(?:h4>)`
 
 
 
@@ -148,28 +120,19 @@ DotAll = ON
 
 
 ### 8. Remove Footers
-DotAll = ON | Minimal Match = ON | Wrap = ON
-
-Find:
-
-`(?:<p class="ctr"(?: style="margin-top: 4px")?>&#160;\[(?:Contents |Ones).*)?<\/div>\n\n<hr\/>\n?\n?<p class="fine ctr c">.*<\/p>` (46)
-
-Replace:
-
-`</div><hr/>`
+DotAll = ON | | Wrap = ON
 
 
-or
-Find `<p class="fine ctr c">.*<\/p>` (minimal) (1353)
+Find `<p class="fine ctr c">.*<\/p>`
 
 
 
 ### 10. Remove Copyright
 DotAll = ON
 
-`<p class="(?:ctr|f2)">Translated.*?&#160;<\/p>`
-	or
-`<p class="(?:c|f)[^>]*?>Translated.*?Use.<\/p>` (seems to match the rest)
+Find:
+
+`<p class="(?:c|f)[^>]*?>Translated.*?(?:Use\.|Domain)<\/p>`
 
 
 
