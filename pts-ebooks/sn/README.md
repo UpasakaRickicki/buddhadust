@@ -83,11 +83,11 @@ DotAll = OFF | Wrap = ON
 
 
 ### 5a. Rename Note Links
-DotAll = OFF | Minimal Match = ON
+DotAll = OFF
 
 Find:
 
-`(<sup>.*<)(a)(.*\/)(a)>(?=.*<\/sup>)` (10835)
+`(<sup>.*<)(a)(.*\/)(a)>(?=.*<\/sup>)`
 
 Replace:
 
@@ -97,7 +97,7 @@ Replace:
 ### 5b. Remove Text Links
 DotAll = OFF | Minimal Match = ON | Wrap = ON
 
-`<\/?a(?:(?= )[^>]*)?>` (44466)
+`<\/?a(?:(?= )[^>]*)?>`
 
 
 
@@ -116,11 +116,11 @@ Replace:
 ### 7. Remove Inline Images / Float Boxes
 DotAll = ON
 
-`<div class="float[lr](?:pp)?.*?<\/div>` M=0 (208)
+`<div class="float[lr](?:pp)?.*?<\/div>`
 
 
 ### 8. Remove Footers
-DotAll = ON | | Wrap = ON
+DotAll = ON
 
 
 Find `<p class="fine ctr c">.*<\/p>`
@@ -137,11 +137,11 @@ Find:
 
 
 ### 11. Remove Brackets on Endnotes
-DotAll = OFF | Minimal Match = ON | Wrap = ON
+DotAll = OFF
 
 Find:
 
-`(<sup>.*)\[(.*)\](.*<\/sup>)` (10834)
+`<sup>.*?)\[(.*?)\](.*?<\/sup>`
 
 Replace:
 
