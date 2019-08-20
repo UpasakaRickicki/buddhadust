@@ -39,7 +39,7 @@ NOTE: Unless specified, the "Replace" field is left blank and "Wrap" is always O
 
 -------------------------------
 
-# AN Reformatting Expressions
+# SN Reformatting Expressions
 
 
 ### 1. Change "m" and "n" Style
