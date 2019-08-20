@@ -68,6 +68,29 @@ Replace:
 `<head><title></title></head><body>`
 
 
+### 3. Alternate TOC generation
+
+#### Remove "Gradual Sayings" text
+
+#### a Book 1
+
+Find: `(<h[34][^>]*?>)The Book of the Gradual Sayings.*?Ones<\/h3>`
+
+##### Books 1-3
+Find: `<h4[^>]*?>The Book of the Gradual Sayings.*?Numbered Suttas` Replace: `<h4>` (190)
+
+##### Books 4
+Find: `<h4[^>]*?>The Book of the Gradual Sayings` Replace: `<h4><span>` (1143)
+
+##### b Books 2-11
+Find: `(<h[34][^>]*?>)The Book of the Gradual Sayings.*?(?=(?:[XVI\. ]+)?The [Bb]ook)`
+Replace: `\1` (1338)
+
+
+
+
+
+
 
 ### 3a. Reformat Titles
 
@@ -101,6 +124,9 @@ DotAll = OFF
 
 Find: `(?:<h4)(.*Suttas? \d+.*)(?:h4>)`
 
+Replace:
+
+`<h2\1h2>`
 
 
 ### 4. Remove Translation Links

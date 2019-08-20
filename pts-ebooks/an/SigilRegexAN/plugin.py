@@ -33,7 +33,7 @@ def run(bk):
         html = re.sub(r'(?:<h1)(.*?)(?:h1>)',r'<h3\1h3>', html, 0, re.DOTALL)
 
         # B. Promote individual "Sutta(s) headers to H2
-        html = re.sub(r'(?:<h4)(.*Suttas? \d+.*)(?:h4>)',r'<h2\1h2>', html, 0, 0)
+        # html = re.sub(r'(?:<h4)(.*Suttas? \d+.*)(?:h4>)',r'<h2\1h2>', html, 0, 0)
 
         # Remove Translation Links
         html = re.sub(r'<span class="f[34]">\[?<[ab].*\]<\/span> ',r'', html, 0, 0)
