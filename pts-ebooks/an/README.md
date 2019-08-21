@@ -52,7 +52,7 @@ b. `ŋ`
 
 Replace:
 
-a. `ṃ`
+a. `ṁ`
 b. `ṅ`
 
 
@@ -61,7 +61,7 @@ DotAll = ON
 
 Find:
 
-`<head>.*(?=<div class="main">)`
+`<head>.*?(?=<div class="main">)`
 
 Replace:
 
