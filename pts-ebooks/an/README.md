@@ -52,7 +52,7 @@ b. `ŋ`
 
 Replace:
 
-a. `ṃ`
+a. `ṁ`
 b. `ṅ`
 
 
@@ -79,6 +79,10 @@ Find: `(<h[34][^>]*?>)The Book of the Gradual Sayings.*?Ones<\/h3>` D=1
 ##### b. Books 2-11
 Find: `(<h[34][^>]*?>)The Book of the Gradual Sayings.*?(?=(?:[XVI\. ]+)?The [Bb]ook)` D=1
 Replace: `\1` (1327)
+
+##### c. Book 4 Chapters VII and VIII (special fix)
+Find: `(Fours).*?(?=Chapter)`
+Replace: `\1</h4><h4>`
 
 
 #### Demote Sutta(s) to H3

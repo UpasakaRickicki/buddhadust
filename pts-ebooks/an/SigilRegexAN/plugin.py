@@ -20,7 +20,7 @@ def run(bk):
 
 
         # Change "m" and "n" Style
-        html = re.sub(r'ɱ',r'ṃ', html, 0, 0)
+        html = re.sub(r'ɱ',r'ṁ', html, 0, 0)
         html = re.sub(r'ŋ',r'ṅ', html, 0, 0)
 
         # Remove Headers + Homepage Line + Nav
