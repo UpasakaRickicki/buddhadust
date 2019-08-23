@@ -5,7 +5,7 @@
 
 #### 1. Prepare a file with each line being one misspelling
 
-wordlist.txt
+`wordlist.txt`
 
 ```
 accomphshment
@@ -17,7 +17,9 @@ aimsfood
 
 #### 2. Prepare another file, with each line being a string replacement
 
-sedfile.txt
+This can be done easily using Sublime Text, Regex, or by merging columns in a spreadsheet editor.
+
+`sedfile.txt`
 
 ```
 s/accomphshment/accomplishment/g
