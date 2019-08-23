@@ -29,6 +29,7 @@ s/aimsfood/almsfood/g
 
 #### 3. Run Terminal Command
 
-OS X: `grep -rl -Ff wordlist.txt dir/ | xargs sed -f sedfile.txt -i`
-Linux?: `grep -rl -Ff wordlist.txt dir/ | xargs sed -f sedfile.txt -i ''`
+OS X: `grep -rl -Ff wordlist.txt dir/ | xargs sed -f sedfile.txt -i ''`
+
+Linux?: `grep -rl -Ff wordlist.txt dir/ | xargs sed -f sedfile.txt -i`
 
