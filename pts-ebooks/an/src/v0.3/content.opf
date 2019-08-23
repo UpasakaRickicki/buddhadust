@@ -4,10 +4,11 @@
     <dc:language>en</dc:language>
     <dc:title>Aṅguttara Nikāya</dc:title>
     <dc:creator opf:role="aut">F.L. Woodward, M.A.</dc:creator>
+    <dc:creator opf:role="aut">E.M. Hare</dc:creator>
     <dc:publisher>The Pali Text Society</dc:publisher>
     <dc:rights>Public Domain</dc:rights>
     <meta name="Sigil version" content="0.9.16" />
-    <dc:date xmlns:opf="http://www.idpf.org/2007/opf" opf:event="modification">2019-08-22</dc:date>
+    <dc:date xmlns:opf="http://www.idpf.org/2007/opf" opf:event="modification">2019-08-23</dc:date>
     <dc:identifier opf:scheme="UUID" id="BookId">urn:uuid:0c26c4d7-2161-46ff-9b30-1c3873bb8239</dc:identifier>
     <meta name="cover" content="AN-cover.png" />
   </metadata>
@@ -1367,16 +1368,18 @@
     <item id="an11.023.wood.pts.htm" href="Text/an11.023.wood.pts.htm" media-type="application/xhtml+xml"/>
     <item id="an11.024.wood.pts.htm" href="Text/an11.024.wood.pts.htm" media-type="application/xhtml+xml"/>
     <item id="an11.025.wood.pts.htm" href="Text/an11.025.wood.pts.htm" media-type="application/xhtml+xml"/>
-    <item id="copyright.xhtml" href="Text/copyright.xhtml" media-type="application/xhtml+xml"/>
-    <item id="AN-cover.png" href="Images/AN-cover.png" media-type="image/png"/>
+    <item id="titlepage.xhtml" href="Text/titlepage.xhtml" media-type="application/xhtml+xml"/>
     <item id="cover.xhtml" href="Text/cover.xhtml" media-type="application/xhtml+xml"/>
     <item id="sgc-toc.css" href="Styles/sgc-toc.css" media-type="text/css"/>
+    <item id="AN-cover.png" href="Images/AN-cover.png" media-type="image/png"/>
     <item id="TOC.xhtml" href="Text/TOC.xhtml" media-type="application/xhtml+xml"/>
+    <item id="credits.xhtml" href="Text/credits.xhtml" media-type="application/xhtml+xml"/>
   </manifest>
   <spine toc="ncx">
     <itemref idref="TOC.xhtml"/>
     <itemref idref="cover.xhtml"/>
-    <itemref idref="copyright.xhtml"/>
+    <itemref idref="titlepage.xhtml"/>
+    <itemref idref="credits.xhtml"/>
     <itemref idref="an01.001-097.wood.pts.htm"/>
     <itemref idref="an01.098-187.wood.pts.htm"/>
     <itemref idref="an01.188-210.wood.pts.htm"/>
