@@ -81,8 +81,8 @@ Find: `(<h[34][^>]*?>)The Book of the Gradual Sayings.*?(?=(?:[XVI\. ]+)?The [Bb
 Replace: `\1` (1327)
 
 ##### c. Book 4 Chapters VII and VIII (special fix)
-Find: `(Fours).*?(?=Chapter)`
-Replace: `\1</h4><h4>`
+Find: `(Fours)[^<>]*?(Chapter )`
+Replace: `\1<br/>`
 
 
 #### Demote Sutta(s) to H3
