@@ -17,7 +17,7 @@ aimsfood
 
 #### 2. Prepare another file, with each line being a string replacement
 
-This can be done easily using Sublime Text, Regex, or by merging columns in a spreadsheet editor.
+This can be done easily using Sublime Text, Regex, or by merging columns in a spreadsheet editor. A template ODS file is available in this directory.
 
 `sedfile.txt`
 
