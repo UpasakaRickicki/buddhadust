@@ -36,7 +36,7 @@ def run(bk):
         # html = re.sub(r'(?:<h4)(.*Suttas? \d+.*)(?:h4>)',r'<h2\1h2>', html, 0, 0)
 
         # Remove Translation Links
-        # html = re.sub(r'<span class="f[34]">\[?<[ab].*\]<\/span> ',r'', html, 0, 0)
+        html = re.sub(r'<span class="f[34]">\[?<[ab].*\]<\/span> ',r'', html, 0, 0)
         
 
         # REFORMAT NOTE LINKS

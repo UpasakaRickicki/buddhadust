@@ -69,7 +69,42 @@ Replace:
 
 
 
-### 3. Reformat Titles
+### 3. Reformat Titles for TOC generation
+
+#### Remove "Gradual Sayings" text
+
+##### a. Book 1
+
+Find: `(<h[34][^>]*?>)The Book of the Gradual Sayings.*?Ones<\/h3>` D=1
+
+##### b. Books 2-11
+Find: `(<h[34][^>]*?>)The Book of the Gradual Sayings.*?(?=(?:[XVI\. ]+)?The [Bb]ook)` D=1
+Replace: `\1` (1327)
+
+##### c. Book 4 Chapters VII and VIII (special fix)
+Find: `(Fours)[^<>]*?(Chapter )`
+Replace: `\1<br/>`
+
+
+#### Demote Sutta(s) to H3
+
+Find: `(?:<h2)(.*?Suttas? \d+(?:-\d+)?.*?)(?:h2>)` D=1
+
+Replace: `<h3\1h3>`
+
+
+#### Promote Book Titles to H1 + Promote Chapter Titles to H2
+
+Find: `(<h4[^>]*?>)([^ṅ]*?(?:Ones|Twos|Threes|Fours|Fives|Sixes|Sevens|Eights|Nines|Tens|Elevens))(<br\/>)(.*?)(<\/h4>)` D=1
+
+Replace: `<h1>\2</h1><h2>\4</h2>`
+
+
+#### Manual Polish
+
+a. Tell Sigil to include *nothing* in the TOC, which makes it add a "not_in_toc" class to all headers
+b. Go in and manually remove that class for the headers we want in the TOC
+c. Formatting stays how we like it, and we only get the TOC items we want
 
 
 
