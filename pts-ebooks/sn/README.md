@@ -71,33 +71,30 @@ Replace:
 
 ### 3. Reformat Titles for TOC generation
 
-#### Remove "Gradual Sayings" text
+#### Remove "Kindred Sayings" text
 
-##### a. Book 1
-
-Find: `(<h[34][^>]*?>)The Book of the Gradual Sayings.*?Ones<\/h3>` D=1
-
-##### b. Books 2-11
-Find: `(<h[34][^>]*?>)The Book of the Gradual Sayings.*?(?=(?:[XVI\. ]+)?The [Bb]ook)` D=1
-Replace: `\1` (1327)
-
-##### c. Book 4 Chapters VII and VIII (special fix)
-Find: `(Fours)[^<>]*?(Chapter )`
-Replace: `\1<br/>`
+Find: `(?:The )?(?:Book of the)? ?(?:<br\/>)? ?Kindred Sayings<br\/> `
 
 
-#### Demote Sutta(s) to H3
 
-Find: `(?:<h2)(.*?Suttas? \d+(?:-\d+)?.*?)(?:h2>)` D=1
+#### Demote H1s to H2
 
-Replace: `<h3\1h3>`
+Find: `(?:<h1)(.*?)(?:h1>)` D=0
+
+Replace: `<h2\1h2>`
 
 
-#### Promote Book Titles to H1 + Promote Chapter Titles to H2
+#### Promote Vagga Titles to H1 + Promote Samyutta Titles to H2 + Vaggo Titles to H3?
 
-Find: `(<h4[^>]*?>)([^ṅ]*?(?:Ones|Twos|Threes|Fours|Fives|Sixes|Sevens|Eights|Nines|Tens|Elevens))(<br\/>)(.*?)(<\/h4>)` D=1
+##### Vagga 1.
 
-Replace: `<h1>\2</h1><h2>\4</h2>`
+Find: `(<h4[^>]*?>)([^ṁ]*?)(<br\/>)(.*?)(<br\/>)( [IVX].*?)(<\/h4>)` D=0
+or `(<h4[^>]*?>)([^ṁ]*?)(<br\/>)(.*?)(<br\/>)( \d.*?)(<\/h4>)`
+or `(<h4[^>]*?>)([^ṁ]*?)(<br\/>)(.*?)(<\/h4>)`
+
+
+Replace: `<h1>\2</h1><h2>\4</h2><h3>\6</h3>`
+or `<h1>\2</h1><h2>\4</h2>`
 
 
 #### Manual Polish
